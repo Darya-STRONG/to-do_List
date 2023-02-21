@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <title>to-do_List</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;           
+        }
+        body{
+            font-family: 'Fredoka One', cursive;
+            background-image: linear-gradient(to right, rgba(20, 196, 84, 0.989), rgb(77, 17, 112));
+            color: white;
+        }
+        .container {
+            width: 95%;
+            margin: auto;
+        }
+        .nav{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 25px 0;
+        }
+        .nav h2 {
+            font-size: 2rem;
+
+        }
+        .user-input{
+            width: 350px;
+            text-align: center;
+        }
+        .user-input input{
+            width: 80%;
+            outline: none;
+            padding: 8px;
+            border: 1px solid lightgray;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            transition: all 0.30s ease-in-out;
+        }
+        .user-input input:focus{
+            box-shadow: 0 0 5px  rgba(20, 196, 84, 0.989);
+            border: 1px solid  rgba(20, 196, 84, 0.989);
+        }
+        .user-input button{
+            cursor: pointer;
+            padding: 8px;
+            width: fit-content;
+            transition: 1s;
+            outline: none;
+            background-color: lightgray;
+            border: 1px solid lightgray;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .user-input button:hover{
+            background-color: transparent;
+            color: white;
+        }
+        .to-do-items{
+            width: 500px;
+            margin: auto;
+        }
+        .item{
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            height: 100%;
+            height: auto;
+            border-radius: 2px;
+            padding: 16px;
+            color: #454545;
+            margin-top: 10px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            transition: all 0.30s ease-in-out;
+        }
+        .item:hover{
+            box-shadow: 0 0 5px  rgba(20, 196, 84, 0.989);
+            border: 1px solid  rgba(20, 196, 84, 0.989);
+        }
+        .item i{
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        @media(max-width:768px){
+            .nav{
+                align-items: center;
+                flex-direction: column;
+            }
+            .nav h2{
+                margin: 10px 0;
+            }
+            .user-input{
+                width: 100%;
+            }
+            .to-do-items{
+                width: 100%;
+            }
+        }
+        @media(max-width:480px){
+            .user-input input{
+                width: 74%;
+            }
+        }
+        @media(max-width:320px){
+            .user-input input{
+                width: 60%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <h2><i class="fa-sharp fa-solid fa-check"></i>To-do List</h2>
+            <div class="user-input">
+                <input id ='input' type="text">
+                <button onclick="addItem()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="to-do-items">
+
+        </div>
+    </div>
+
+
+    <script>
+
+        const toDoItems = document.getElementsByClassName('to-do-items')[0];
+        const input = document.getElementById('input');
+        const trashIcon = document.getElementById('trash');
+
+        input.addEventListener('keydown', function(event){
+            if(event.key === 'Enter')
+            addItem();
+        })
+        function addItem(){
+            let divParent = document.createElement('div');
+            let divChild = document.createElement('div');
+            let checkIcon = document.createElement('i');
+            let trashIcon = document.createElement('i');
+
+            divParent.className='item';
+            divParent.innerHTML = "<div>"+input.value+'</div>';
+
+            checkIcon.className = 'fas fa-check-square';
+            checkIcon.style.color = 'lightgray';
+            checkIcon.addEventListener('click', function(){
+                checkIcon.style.color = 'limegreen';
+            })
+            divChild.appendChild(checkIcon);
+            
+            trashIcon.className = 'fas fa-trash';
+            trashIcon.style.color = 'darkgray';
+            trashIcon.addEventListener('click', function(){
+                divParent.remove();
+            })
+            divChild.appendChild(trashIcon);
+
+            divParent.appendChild(divChild);
+
+            toDoItems.appendChild(divParent);
+
+            input.value = '';
+
+        }
+
+    </script>
+</body>
+</html>
